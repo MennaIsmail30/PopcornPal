@@ -1,19 +1,19 @@
 import { useState } from "react";
 
-function WatchedMoviesList({ watched }) {
+function WatchedMoviesList({ watched, onDleteMovie }) {
     return (
         <ul className="list">
             {watched.map((movie) => (
-                <WatchedMovie movie={movie} key={movie.imdbID} />
+                <WatchedMovie movie={movie} key={movie.imdbID} onDleteMovie={onDleteMovie} />
             ))}
         </ul>
     );
 }
 
-function WatchedMovie({ movie }) {
+function WatchedMovie({ movie, onDleteMovie }) {
     return (
         <li>
-            <img src={movie.Poster} alt={`${movie.Title} poster`} />
+            <img src={movie.poster} alt={`${movie.title} poster`} />
             <h3>{movie.Title}</h3>
             <div>
                 <p>
@@ -28,6 +28,9 @@ function WatchedMovie({ movie }) {
                     <span>⏳</span>
                     <span>{movie.runtime} min</span>
                 </p>
+                <button className="btn-delete" onClick={() => onDleteMovie(movie.imdbID)}>
+                    x
+                </button>
             </div>
         </li>
     );
