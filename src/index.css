@@ -40,7 +40,54 @@ body {
     background-color: var(--color-primary);
     border-radius: 0.9rem;
 }
+.login {
+    display: block;
+    margin-top: 8%;
+    /* border: 2px solid white; */
+    /* padding: 1.2rem 1.2rem 1.8rem 3.2rem; */
+    width: 800px;
+    height: 500px;
+    border-radius: 0.9rem;
+    margin-left: 30%;
+    background-color: var(--color-background-100);
+    box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.2);
+}
+.login-inp {
+    width: 500px;
 
+    height: 50px;
+    background-color: #343a40;
+    border: 2 solid white;
+    border-radius: 10px;
+    margin-top: 8%;
+}
+.login-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.lable {
+    font-size: large;
+    font-weight: bold;
+    margin-top: 50px;
+}
+.btn-login {
+    background-color: var(--color-primary);
+    color: var(--color-text);
+    border: none;
+    border-radius: 2rem;
+    font-size: 1.4rem;
+    padding: 2rem;
+    display: flex;
+    width: 500px;
+    text-align: center;
+    justify-content: center;
+    margin-top: 8%;
+    margin-left: 13%;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
 .main {
     margin-top: 2.4rem;
     height: calc(100vh - 7.2rem - 3 * 2.4rem);

@@ -9,6 +9,7 @@ import MovieList from "./components/MovieList";
 import Box from "./components/ListBox";
 import WatchedMoviesList from "./components/WatchedMovies";
 import WatchedSummary from "./components/WatchesSummary";
+import Login from "./components/Login";
 
 
 const tempMovieData = [
@@ -65,12 +66,12 @@ export default function App() {
   const [error, setError] = useState("");
   const tempQuery = "Interstellar";
   useEffect(function () {
-
+    const controller = new AbortController();
     async function fetchMovies() {
       try {
         setIsLoading(true);
         setError("")
-        const res = await fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=${query}`)
+        const res = await fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=${query}`, { signal: controller.signal })
 
         if (!res.ok) throw new Error("Something went wrong with fetch data")
         const data = await res.json()
@@ -95,6 +96,9 @@ export default function App() {
     }
 
     fetchMovies()
+    return function () {
+      controller.abort();
+    }
   }, [query])
 
 
@@ -117,6 +121,7 @@ export default function App() {
         <Search query={query} setQuery={setQuery} />
         <NumResults movies={movies} query={query} />
       </NavBar>
+      {/* <Login /> */}
       <Main >
         <Box>
           {isLoading && <Loader />}
