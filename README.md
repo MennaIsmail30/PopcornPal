@@ -16,7 +16,11 @@ React Hooks?
 
 -   useState()
 -   useEffect()
+  
+Custom Hooks?
 
+-   useLocalStorageState()
+  
 What are the functionalities?
 
 -   Add Movies to the list
@@ -26,3 +30,4 @@ What are the functionalities?
 -   Loading movie details
 -   Handling Errors
 -   change page title based on movie name
+-   Store watched movies at local storage
