@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import StarRating from "./components/StarRating"
 import NavBar from "./components/NavBar";
 import Main from "./components/Main";
@@ -10,6 +10,7 @@ import Box from "./components/ListBox";
 import WatchedMoviesList from "./components/WatchedMovies";
 import WatchedSummary from "./components/WatchesSummary";
 import Login from "./components/Login";
+import { useLocalStorageState } from "./useLocalStorage";
 
 
 const tempMovieData = [
@@ -60,10 +61,14 @@ const KEY = "f76006b7";
 export default function App() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
+  // const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [error, setError] = useState("");
+
+
+  const [watched, setWatched] = useLocalStorageState([], "watched")
+
   const tempQuery = "Interstellar";
   useEffect(function () {
     const controller = new AbortController();
@@ -110,10 +115,14 @@ export default function App() {
   }
   function handelAddMovie(movie) {
     setWatched((watched) => [...watched, movie])
+
+    // localStorage.setItem('watched', JSON.stringify([...watched, movie]))
   }
   function handleDeleteMovie(id) {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id))
   }
+
+
   return (
     <>
 
@@ -158,7 +167,12 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
   const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
   const watchedUserrating = watched.find((movie) => movie.imdbID === selectedId)?.userRating
     ;
+
   console.log(isWatched);
+  // const countRef = useRef(0);
+  // useEffect(function () {
+  //   if (userRating) countRef.current = countRef.current + 1;
+  // }, [userRating])
   const { Title: title, Year: year, Poster: poster, Runtime: runtime, imdbRating,
     Plot: plot, Released: released, Actors: actors,
     Director: director, Cenre: genre } = movie;
@@ -171,6 +185,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
       imdbRating: Number(imdbRating),
       runtime: Number(runtime.split(' ').at(0)),
       userRating,
+      // countRatingDecision: countRef.current;
     };
     onAddWatched(newWatchedMovie)
     onCloseMovie();
